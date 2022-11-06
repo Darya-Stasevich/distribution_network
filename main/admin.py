@@ -18,6 +18,7 @@ class ElementAdmin(admin.ModelAdmin):
     list_filter = ('contact__address__country',)
     inlines = [WorkerInline, ]
     actions = [clear_debt]
+    change_form_template = "admin/model_change_form.html"
 
     def view_supplier(self, obj):
         if obj.supplier:
