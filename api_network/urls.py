@@ -2,7 +2,7 @@ from django.urls import path
 
 from api_network.views import ElementsByCountryListView, ElementsListView, ElementsByProductListView, \
     ElementsByDebtListView, ProductCreateView, ProductDestroyView, ElementCreateView, ElementDestroyView, \
-    ProductUpdateView, ElementUpdateView
+    ProductUpdateView, ElementUpdateView, ElemQrCreateView
 
 app_name = 'api_network'
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path('delete_element/<int:pk>', ElementDestroyView.as_view()),
     path('update_product/<int:pk>', ProductUpdateView.as_view()),
     path('update_element/<int:pk>', ElementUpdateView.as_view()),
+    path('qr', ElemQrCreateView.as_view()),
 ]

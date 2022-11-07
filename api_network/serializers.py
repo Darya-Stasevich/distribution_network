@@ -91,3 +91,10 @@ class ElementUpdateSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Element
         fields = ['id', 'category', 'title', 'contact', 'products', 'workers', 'supplier', 'debt']
+
+
+class ElementQrSerializer(serializers.ModelSerializer):
+    """Сериализатор названия объекта сети для генерации qr-кода"""
+    class Meta:
+        model = Element
+        fields = ['title', ]
