@@ -139,4 +139,6 @@ EMAIL_HOST_USER = 'python25092021@gmail.com'
 EMAIL_HOST_PASSWORD = 'vowlvlgnvbfccygn'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'python25092021@gmail.com'
-# DEFAULT_TO_EMAIL = 'Your email'
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"

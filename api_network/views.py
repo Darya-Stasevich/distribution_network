@@ -11,6 +11,7 @@ from api_network.serializers import ElementsSerializer, ProductSerializer, Eleme
     ElementCreateSerializer, ProductUpdateSerializer, ElementQrSerializer
 
 from main.models import Element, Product
+from main.tasks import send_qrcode
 
 
 class IsActive(permissions.BasePermission):
@@ -101,19 +102,10 @@ class ElemQrCreateView(generics.CreateAPIView):
     permission_classes = [IsActive]
 
     def post(self, request, *args, **kwargs):
-        if request.data['title']:
+        if request.data['title'] and request.user.email:
             title = request.data['title']
             email = request.user.email
-            elem = get_object_or_404(Element, title=title)
-            if elem:
-                img = qrcode.make(elem.contact)
-                img.save(f'media/{title}.png')
-                email = request.user.email
-                em = EmailMessage(subject='Ловите qr-код!', body='New Qr code', to=[email])
-                em.attach_file(f'media\{title}.png')
-                em.send()
+            if Element.objects.filter(title=title).exists():
+                send_qrcode.delay(title, email)
                 return Response('Сообщение отправлено')
-            else:
-                return Response('Нет такого объекта сети')
-
-        return Response('Введите наименование объекта сети')
+        return Response('Введите название объекта сети!')
