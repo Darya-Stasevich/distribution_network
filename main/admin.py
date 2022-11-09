@@ -2,11 +2,15 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from main.models import *
-
+from main.tasks import clear_debt_async
 
 @admin.action(description='Очистить задолженность')
 def clear_debt(modeladmin, request, queryset):
-    queryset.update(debt=0)
+    if queryset.count() < 2:
+        queryset.update(debt=0)
+    else:
+        for obj in queryset:
+            clear_debt_async.delay(obj.id)
 
 
 class WorkerInline(admin.StackedInline):

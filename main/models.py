@@ -21,7 +21,7 @@ class Element(models.Model):
     products = models.ManyToManyField('Product', related_name='elements', verbose_name="Продукты", blank=True, null=True)
     supplier = models.ForeignKey('Element', on_delete=models.CASCADE, blank=True, null=True,
                                  verbose_name="Поставщик")
-    debt = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0,
+    debt = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0,
                                validators=[MinValueValidator(Decimal('0.00'))], verbose_name="Задолженность")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 

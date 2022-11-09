@@ -102,7 +102,9 @@ class ElemQrCreateView(generics.CreateAPIView):
     permission_classes = [IsActive]
 
     def post(self, request, *args, **kwargs):
-        if request.data['title'] and request.user.email:
+        print(request.data)
+        print(request.user)
+        if request.data['title']:
             title = request.data['title']
             email = request.user.email
             if Element.objects.filter(title=title).exists():

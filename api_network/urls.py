@@ -1,8 +1,8 @@
 from django.urls import path
 
 from api_network.views import ElementsByCountryListView, ElementsListView, ElementsByProductListView, \
-    ElementsByDebtListView, ProductCreateView, ProductDestroyView, ElementCreateView, ElementDestroyView, \
-    ProductUpdateView, ElementUpdateView, ElemQrCreateView
+    ProductCreateView, ProductDestroyView, ElementCreateView, ElementDestroyView, \
+    ProductUpdateView, ElementUpdateView, ElemQrCreateView, ElementsByDebtListView
 
 app_name = 'api_network'
 
