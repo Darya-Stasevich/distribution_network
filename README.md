@@ -1,7 +1,7 @@
 Стасевич Дарья Викторовна, Python Developer
 
 Запуск проекта для линукс:
-1. Клонируем проект
+1. Клонируем проект git clone https://github.com/Darya-Stasevich/distribution_network.git
 2. Запускам сервер: python3 manage.py runserver
 3. Запускаем redis : redis-server
 4. Запускаем celery и celery-beat: celery -A  configs  worker --beat -l info
