@@ -19,12 +19,12 @@ class ElementsSerializer(serializers.ModelSerializer):
         fields = ['id', 'category', 'title', 'contact', 'products', 'workers', 'supplier', 'debt', 'created']
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(WritableNestedModelSerializer):
     """Сериализатор для продукта"""
 
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'title', 'price', 'issue_date']
 
 
 class WorkerSerializer(WritableNestedModelSerializer):

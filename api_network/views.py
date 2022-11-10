@@ -2,7 +2,7 @@ import qrcode
 from django.core.mail import EmailMessage
 from django.db.models import Avg
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework import permissions
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
@@ -15,7 +15,7 @@ from main.tasks import send_qrcode
 
 
 class IsActive(permissions.BasePermission):
-    """Права доступа к API только активных пользователей"""
+    """Права доступа к API только для активных пользователей"""
 
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_active)
@@ -34,7 +34,7 @@ class ElementsByCountryListView(generics.ListAPIView):
     serializer_class = ElementsSerializer
     permission_classes = [IsActive]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['contact__address__city']
+    filterset_fields = ['contact__address__country']
 
 
 class ElementsByProductListView(generics.ListAPIView):
@@ -102,8 +102,6 @@ class ElemQrCreateView(generics.CreateAPIView):
     permission_classes = [IsActive]
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
-        print(request.user)
         if request.data['title']:
             title = request.data['title']
             email = request.user.email

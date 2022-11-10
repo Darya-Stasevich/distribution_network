@@ -6,7 +6,7 @@ from main.tasks import clear_debt_async
 
 @admin.action(description='Очистить задолженность')
 def clear_debt(modeladmin, request, queryset):
-    if queryset.count() < 2:
+    if queryset.count() < 20:
         queryset.update(debt=0)
     else:
         for obj in queryset:

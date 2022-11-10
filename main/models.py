@@ -18,7 +18,7 @@ class Element(models.Model):
     title = models.CharField(max_length=50, verbose_name='Наименование звена сети')
     contact = models.OneToOneField('Contact', on_delete=models.CASCADE,
                                    verbose_name="Контакты")
-    products = models.ManyToManyField('Product', related_name='elements', verbose_name="Продукты", blank=True, null=True)
+    products = models.ManyToManyField('Product', related_name='elements', verbose_name="Продукты", blank=True)
     supplier = models.ForeignKey('Element', on_delete=models.CASCADE, blank=True, null=True,
                                  verbose_name="Поставщик")
     debt = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0,
@@ -26,7 +26,7 @@ class Element(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
     class Meta:
-        ordering = ['created', ]
+        ordering = ['-created', ]
         verbose_name = "Объект сети"
         verbose_name_plural = "Объекты сети"
 
